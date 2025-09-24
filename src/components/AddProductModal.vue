@@ -56,14 +56,15 @@
             @click="$emit('fechar')"
             class="hover:cursor-pointer rounded-lg w-60 h-10 bg-gray-400 hover:bg-gray-500 transition-colors duration-200 font-medium"
           >
-            Fechar
+            Close
           </button>
           <br />
+          <!-- make this button save the product  METHOD: UPDATE -->
           <button
             @click="$emit('fechar')"
             class="hover:cursor-pointer rounded-lg w-60 h-10 bg-sky-400 text-white hover:bg-sky-500 transition-colors duration-200 font-medium"
           >
-            Salvar
+            Save
           </button>
         </div>
       </div>
@@ -95,7 +96,7 @@ defineEmits(["fechar"]);
 
 <script>
 export default {
-  name: "ProductModal",
+  name: "AddProductModal",
 };
 </script>
 
@@ -107,7 +108,7 @@ export default {
   width: 100vw;
   height: 100vh;
 
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
 
   z-index: 1000;
 

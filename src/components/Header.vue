@@ -6,51 +6,86 @@
       <h1 class="text-3xl font-bold text-sky-600">SkyShop</h1>
       <p class="w-40 ml-4 text-sm text-gray-500">Premium E-commerce</p>
     </div>
-    <div class="flex content-center space-x-5">
+    <div class="flex content-center space-x-3">
       <button
-        @click="abrirModal"
+        @click="abrirAddProductModal"
         class="hover:cursor-pointer mt-4 w-35 h-10 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
       >
+      +
         Add Product
       </button>
-      <ProductModal :visivel="modalAberto" @fechar="fecharModal" />
+      <AddProductModal
+        :visivel="modalAddProductAberto"
+        @fechar="fecharAddProductModal"
+      />
       <button
-      @click="abrirModal"
-        class="hover:cursor-pointer mt-4 w-35 h-10 bg-sky-200 hover:bg-sky-300 text-gray-600 px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+        @click="abrirCartModal"
+        class="hover:cursor-pointer mt-4 w-35 h-10 bg-sky-200 hover:bg-sky-300 text-gray-600 px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
       >
+      🛒
         Cart
       </button>
+      <CartModal :visivel="modalCartAberto" @fechar="fecharCartModal" />
       <!-- switch the function to the most properly for the button -->
       <button
-      @click="abrirModal"
-        class="hover:cursor-pointer mt-4 w-35 h-10 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+      @click="abrirUserModal"
+        class="hover:cursor-pointer mt-4 w-35 h-10 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
       >
-        Payment
+      🙍
+        User
       </button>
+      <UserModal :visivel="modalUserAberto" @fechar="fecharUserModal" />
     </div>
   </main>
 </template>
 
 <script>
-import ProductModal from "./ProductModal.vue";
+import AddProductModal from "./AddProductModal.vue";
+import CartModal from "./CartModal.vue";
+import UserModal from "./UserModal.vue";
 
 export default {
-  components: { ProductModal },
+  components: { AddProductModal, CartModal, UserModal },
   name: "Header",
   data() {
     return {
-      modalAberto: false,
+      modalAddProductAberto: false,
+      modalCartAberto: false,
+      modalUserAberto: false
     };
   },
   methods: {
-    abrirModal() {
-      console.log('1. Botão de abrir foi clicado!');
-      this.modalAberto = true;
-      console.log('2. Estado "modalAberto" agora é:', this.modalAberto);
+    abrirAddProductModal() {
+      console.log("1. Botão de abrir foi clicado!");
+      this.modalAddProductAberto = true;
+      console.log(
+        '2. Estado "modalAddProductAberto" agora é:',
+        this.modalAddProductAberto
+      );
     },
 
-    fecharModal() {
-      this.modalAberto = false;
+    fecharAddProductModal() {
+      this.modalAddProductAberto = false;
+    },
+
+    abrirCartModal() {
+      console.log("1. Botão de abrir foi clicado!");
+      this.modalCartAberto = true;
+      console.log('2. Estado "modalCartAberto" agora é:', this.modalCartAberto);
+    },
+
+    fecharCartModal() {
+      this.modalCartAberto = false;
+    },
+
+    abrirUserModal() {
+      console.log("1. Botão de abrir foi clicado!");
+      this.modalUserAberto = true;
+      console.log('2. Estado "modalUserAberto" agora é:', this.modalUserAberto);
+    },
+
+    fecharUserModal() {
+      this.modalUserAberto = false;
     },
   },
 };
