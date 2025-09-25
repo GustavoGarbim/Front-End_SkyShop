@@ -83,7 +83,7 @@ const router = useRouter();
 const name = ref("");
 const email = ref("");
 const password = ref("");
-const address = ref("rua montegolfier")
+const address = ref("rua montegolfier");
 
 const fazerCadastro = async () => {
   try {
@@ -91,7 +91,7 @@ const fazerCadastro = async () => {
       name: name.value,
       email: email.value,
       password: password.value,
-      address: address.value
+      address: address.value,
     });
 
     console.log("Resposta do backend:", response.data);

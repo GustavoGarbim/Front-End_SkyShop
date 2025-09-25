@@ -33,7 +33,7 @@
               <input
                 type="password"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
-                placeholder="password"
+                placeholder="Password"
                 v-model="password"
                 required
               />
@@ -84,9 +84,11 @@ const fazerLogin = async () => {
     console.log("Resposta do backend:", response.data);
 
     const token = response.data.token;
+    const user = response.data.user;
     localStorage.setItem("userToken", token);
+    localStorage.setItem('userId', user.id);
 
-    router.push("/");
+    router.push("/home");
   } catch (error) {
     console.error("Erro ao fazer login: ", error);
     alert("Falha no login, verifique seu e-mail e senha");

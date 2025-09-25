@@ -11,8 +11,7 @@
         @click="abrirAddProductModal"
         class="hover:cursor-pointer mt-4 w-35 h-10 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
       >
-      +
-        Add Product
+        + Add Product
       </button>
       <AddProductModal
         :visivel="modalAddProductAberto"
@@ -20,24 +19,33 @@
       />
       <button
         @click="abrirCartModal"
-        class="hover:cursor-pointer mt-4 w-35 h-10 bg-sky-200 hover:bg-sky-300 text-gray-600 px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
+        class="hover:cursor-pointer mt-4 w-35 h-10 bg-sky-200 hover:bg-sky-300 text-gray-600 px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
       >
-      🛒
-        Cart
+        🛒 Cart
+        <span
+          v-if="cartStore.cartItemCount > 0"
+          class="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold"
+        >
+          {{ cartStore.cartItemCount }}
+        </span>
       </button>
       <CartModal :visivel="modalCartAberto" @fechar="fecharCartModal" />
-      <!-- switch the function to the most properly for the button -->
       <button
-      @click="abrirUserModal"
+        @click="abrirUserModal"
         class="hover:cursor-pointer mt-4 w-35 h-10 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
       >
-      🙍
-        User
+        🙍 User
       </button>
       <UserModal :visivel="modalUserAberto" @fechar="fecharUserModal" />
     </div>
   </main>
 </template>
+
+<script setup>
+import { useCartStore } from "../stores/cartStore";
+
+const cartStore = useCartStore();
+</script>
 
 <script>
 import AddProductModal from "./AddProductModal.vue";
@@ -51,7 +59,7 @@ export default {
     return {
       modalAddProductAberto: false,
       modalCartAberto: false,
-      modalUserAberto: false
+      modalUserAberto: false,
     };
   },
   methods: {
