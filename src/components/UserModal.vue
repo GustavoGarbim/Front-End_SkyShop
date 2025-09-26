@@ -3,8 +3,8 @@
     <div v-if="!user">Loading data...</div>
     <div v-else>
       <form @submit.prevent="saveChanges">
-        <div v-if="visivel" class="modal-backdrop">
-          <div class="modal-content">
+        <div v-if="visivel" class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50">
+          <div class="bg-white p-5 rounded-2xl shadow-2xl w-130 h-auto flex flex-col">
             <div
               class="flex justify-between items-center p-6 border-b border-gray-200"
             >
@@ -180,32 +180,3 @@ export default {
   name: "UserModal",
 };
 </script>
-
-<style scoped>
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background-color: rgba(0, 0, 0, 0.5);
-
-  z-index: 1000;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 500px;
-  height: 700px;
-  display: flex;
-  flex-direction: column;
-}
-</style>

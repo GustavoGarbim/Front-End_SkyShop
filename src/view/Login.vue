@@ -1,8 +1,8 @@
 <template>
   <main>
-    <div class="login">
+    <div class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-sky-200 to-sky-300 flex justify-center items-center">
       <form @submit.prevent="fazerLogin">
-        <div class="login-content">
+        <div class="bg-white p-5 rounded-2xl shadow-2xl w-118 h-140 flex flex-col">
           <div
             class="flex justify-between items-center p-6 border-b border-gray-200"
           >
@@ -29,7 +29,7 @@
               />
               <br />
               <br />
-              <label for="password">password</label>
+              <label for="password">Password</label>
               <input
                 type="password"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
@@ -101,32 +101,3 @@ export default {
 };
 <script>
 </script>
-
-<style scoped>
-.login {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: linear-gradient(to top, rgb(95, 191, 255), rgb(0, 104, 174));
-
-  z-index: 1000;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-content {
-  background-color: rgb(255, 255, 255);
-  padding: 20px 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 500px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-}
-</style>

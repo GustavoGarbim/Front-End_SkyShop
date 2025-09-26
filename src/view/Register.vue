@@ -1,8 +1,8 @@
 <template>
   <main>
-    <div class="register">
+    <div class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-sky-200 to-sky-300 flex justify-center items-center">
       <form @submit.prevent="fazerCadastro">
-        <div class="register-content">
+        <div class="bg-white p-5 rounded-2xl shadow-2xl w-118 h-150 flex flex-col">
           <div
             class="flex justify-between items-center p-6 border-b border-gray-200"
           >
@@ -112,32 +112,3 @@ export default {
   name: "Register",
 };
 </script>
-
-<style scoped>
-.register {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: linear-gradient(to top, rgb(95, 191, 255), rgb(0, 104, 174));
-
-  z-index: 1000;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.register-content {
-  background-color: white;
-  padding: 20px 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 500px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-}
-</style>

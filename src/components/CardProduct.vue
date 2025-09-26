@@ -1,61 +1,106 @@
 <template>
-  <div
-    className="w-90 ml-10 mt-10 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1"
-  >
-    <div className="relative overflow-hidden">
-      <img
-        :src="product.imageUrl"
-        alt="*"
-        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-      />
-      <div
-        className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-      >
-        <button
-          className="hover:cursor-pointer bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors duration-200"
+  <main>
+    <EditProductModal
+      :visivel="isModalVisible"
+      :productId="selectedProductId"
+      @fechar="fecharEditProductModal"
+      @salvo="handleSaveSuccess"
+    />
+    <div
+      className="w-90 h-87 ml-10 mt-10 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 p-1"
+    >
+      <div className="relative overflow-hidden flex justify-center">
+        <img
+          :src="product.imageUrl"
+          alt="*"
+          className=" h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+        />
+        <div
+          className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
         >
-          🖊️
-        </button>
-        <button
-          className="hover:cursor-pointer bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-colors duration-200"
-        >
-          🗑️
-        </button>
+          <button
+            className="hover:cursor-pointer bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors duration-200"
+            @click="abrirEditProductModal(product)"
+          >
+            🖊️
+          </button>
+          <button
+            className="hover:cursor-pointer bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-colors duration-200"
+            @click="deleteProduct(product)"
+          >
+            🗑️
+          </button>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2 truncate">
+          {{ product.name }}
+        </h3>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {{ product.description }}
+        </p>
+
+        <div className="flex justify-between items-center">
+          <span className="text-2xl font-bold text-sky-600"
+            >R$ {{ (product.price || 0).toFixed(2) }}</span
+          >
+          <button
+            @click="cartStore.addToCart(product)"
+            className="hover:cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-
-    <div className="p-6">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2 truncate">
-        {{ product.name }}
-      </h3>
-      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-        {{ product.description }}
-      </p>
-
-      <div className="flex justify-between items-center">
-        <span className="text-2xl font-bold text-sky-600"
-          >R$ {{ (product.price || 0).toFixed(2) }}</span
-        >
-        <button
-          @click="cartStore.addToCart(product)"
-          className="hover:cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
-        >
-          Add to Cart
-        </button>
-      </div>
-    </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useCartStore } from "../stores/cartStore";
+import api from "../services/api";
+import EditProductModal from "./EditProductModal.vue";
 
 const cartStore = useCartStore();
 
-defineProps({
+const props = defineProps({
   product: {
     type: Object,
     required: true,
   },
 });
+
+const emit = defineEmits(["produtoAtualizado"]);
+
+const isModalVisible = ref(false);
+const selectedProductId = ref(null);
+
+const abrirEditProductModal = (product) => {
+  console.log(`[CardProduct] Abrindo modal para o produto ID: ${product.id}`);
+  selectedProductId.value = product.id;
+  isModalVisible.value = true;
+};
+
+const fecharEditProductModal = () => {
+  isModalVisible.value = false;
+  selectedProductId.value = null;
+};
+
+const handleSaveSuccess = () => {
+  fecharEditProductModal();
+  emit("produtoAtualizado");
+};
+
+const deleteProduct = async (product) => {
+  if (!confirm(`Tem certeza que deseja deletar "${product.name}"?`)) return;
+  try {
+    await api.delete(`/api/products/${product.id}`);
+    alert("Produto deletado com sucesso!");
+    emit("produtoAtualizado");
+  } catch (error) {
+    console.error("Erro ao deletar produto: ", error);
+  }
+};
 </script>
