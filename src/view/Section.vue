@@ -1,5 +1,5 @@
 <template>
-  <main class="h-auto w-auto bg-sky-100">
+  <main class="h-auto w-auto bg-gradient-to-br from-sky-50 to-blue-100">
     <Header />
     <div class="ml-10 mt-10">
       <h1 class="text-3xl font-bold text-gray-800 mb-2">Featured Products</h1>

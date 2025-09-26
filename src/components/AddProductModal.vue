@@ -20,6 +20,7 @@
             type="text"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
             placeholder="https://example.com/image.jpg"
+            v-model="productForm.image"
             required
           />
           <br />
@@ -107,6 +108,7 @@ watch(
   (novoValor) => {
     console.log("A prop 'visivel' mudou para:", novoValor);
     if (novoValor) {
+      productForm.image = "";
       productForm.name = "";
       productForm.price = null;
       productForm.description = "";
@@ -116,6 +118,7 @@ watch(
 );
 
 const productForm = reactive({
+  imageUrl: "",
   name: "",
   price: null, 
   description: "",

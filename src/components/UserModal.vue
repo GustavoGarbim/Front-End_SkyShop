@@ -133,8 +133,8 @@ defineEmits(["fechar"]);
 const user = ref("");
 const id = localStorage.getItem("userId");
 
-const oldPassword = ref('');
-const newPassword = ref('');
+const oldPassword = ref("");
+const newPassword = ref("");
 
 const isPasswordVisible = ref(false);
 const togglePasswordVisibility = () => {
@@ -167,8 +167,8 @@ const saveChanges = async () => {
       newPassword: newPassword.value,
     });
 
-    oldPassword.value = '';
-    newPassword.value = '';
+    oldPassword.value = "";
+    newPassword.value = "";
   } catch (error) {
     console.error("Erro ao salvar os dados:", error);
   }

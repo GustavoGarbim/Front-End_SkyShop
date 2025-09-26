@@ -1,9 +1,13 @@
 <template>
   <main
-    class="h-20 flex justify-start space-x-276 bg-white shadow-red-400 border-b-2 border-sky-200"
+    class="h-20 flex justify-start space-x-276 bg-white shadow-lg border-b-2 border-sky-200"
   >
     <div class="ml-5 flex items-center">
-      <h1 class="text-3xl font-bold text-sky-600">SkyShop</h1>
+      <router-link to="/">
+        <button class="text-3xl font-bold text-sky-600 hover:cursor-pointer">
+          SkyShop
+        </button>
+      </router-link>
       <p class="w-40 ml-4 text-sm text-gray-500">Premium E-commerce</p>
     </div>
     <div class="flex content-center space-x-3">
