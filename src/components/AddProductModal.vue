@@ -1,8 +1,13 @@
 <template>
   <main>
-    <div v-if="visivel" class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50">
+    <div
+      v-if="visivel"
+      class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50"
+    >
       <form @submit.prevent="createProduct">
-        <div class="bg-white p-5 rounded-2xl shadow-2xl w-130 h-170 flex flex-col">
+        <div
+          class="bg-white p-5 rounded-2xl shadow-2xl w-130 h-170 flex flex-col"
+        >
           <div
             class="flex justify-between items-center p-6 border-b border-gray-200"
           >
@@ -120,9 +125,9 @@ watch(
 const productForm = reactive({
   imageUrl: "",
   name: "",
-  price: null, 
+  price: null,
   description: "",
-  stock: 0, 
+  stock: 0,
 });
 
 const createProduct = async () => {
@@ -133,9 +138,8 @@ const createProduct = async () => {
 
   try {
     const response = await api.post(`/api/products`, productForm);
-    window.location.reload()
-    alert('Produto criado com sucesso!');
-
+    window.location.reload();
+    alert("Produto criado com sucesso!");
   } catch (error) {
     console.error("Erro ao adicionar produto: ", error);
     alert("Falha ao adicionar produto, tente novamente mais tarde.");

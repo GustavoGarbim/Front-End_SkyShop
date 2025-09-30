@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import api from '../services/api'
 
 export const useCartStore = defineStore('cart', () => {
     const cartItems = ref([])
@@ -11,46 +12,105 @@ export const useCartStore = defineStore('cart', () => {
         return cartItems.value.reduce((total, item) => total + (item.price * item.quantity), 0)
     })
 
-    function addToCart(product) {
-        const existingItem = cartItems.value.find(item => item.id === product.id)
+    async function addToCart(product) {
+        try {
+            const userId = localStorage.getItem("userId");
+            if (!userId) {
+                alert("Faça o login para adicionar itens ao carrinho.");
+                return;
+            }
 
-        if (existingItem) {
-            existingItem.quantity++
-        } else {
-            cartItems.value.push({ ...product, quantity: 1 })
+            const response = await api.post('/api/carts/items', {
+                productId: product.id,
+                quantity: 1,
+            },
+                {
+                    params: {
+                        userId
+                    }
+                }
+            );
+            cartItems.value = response.data.items;
+
+        } catch (error) {
+            console.error('Erro ao adicionar item ao carrinho: ', error);
         }
-        console.log('Carrinho atualizado:', cartItems.value);
     }
 
-    function removeFromCart(productId) {
-        cartItems.value = cartItems.value.filter(item => item.id !== productId)
+    async function fetchCart() {
+        try {
+            const userId = localStorage.getItem("userId");
+            if (!userId) return;
+
+
+
+            const response = await api.get('/api/carts', { params: { userId } });
+            cartItems.value = response.data.items || [];
+
+            const cartId = response.id
+            console.log(cartId)
+        } catch (error) {
+            console.error('Erro ao buscar o carrinho:', error);
+        }
+    }
+
+    async function removeFromCart(productId) {
+        try {
+            const userId = localStorage.getItem("userId");
+            const response = await api.delete(`/api/carts/items/${productId}`, { params: { userId } });
+            cartItems.value = response.data.items;
+        } catch (error) {
+            console.error('Erro ao remover item do carrinho:', error);
+        }
+    }
+
+    async function updateQuantity(productId, quantity) {
+        if (quantity < 1) {
+            removeFromCart(productId);
+            return;
+        }
+        try {
+            const userId = localStorage.getItem("userId");
+            if (!userId) return;
+
+            const response = await api.put(
+                `/api/carts/items/${productId}`,
+                { quantity },
+                { params: { userId } }
+            );
+            cartItems.value = response.data.items;
+        } catch (error) {
+            console.error('Erro ao atualizar a quantidade:', error);
+        }
     }
 
     function incrementQuantity(productId) {
-        const item = cartItems.value.find(item => item.id === productId)
+        const item = cartItems.value.find(item => item.id === productId);
         if (item) {
-            item.quantity++
+            updateQuantity(productId, item.quantity + 1);
         }
     }
 
     function decrementQuantity(productId) {
-        const item = cartItems.value.find(item => item.id === productId)
+        const item = cartItems.value.find(item => item.id === productId);
         if (item) {
-            if (item.quantity > 1) {
-                item.quantity--
-            } else {
-                removeFromCart(productId)
-            }
+            updateQuantity(productId, item.quantity - 1);
         }
+    }
+
+    function clearCart() {
+        cartItems.value = [];
     }
 
     return {
         cartItems,
         cartItemCount,
         cartTotalPrice,
+        fetchCart,
         addToCart,
-        removeFromCart,   
+        removeFromCart,
         incrementQuantity,
         decrementQuantity,
+        clearCart,
     }
 })
