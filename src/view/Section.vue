@@ -32,7 +32,6 @@ import { ref, onMounted, computed } from "vue";
 import api from "../services/api";
 import Header from "../components/Header.vue";
 import CardProduct from "../components/CardProduct.vue";
-import SearchBar from "../components/SearchBar.vue";
 
 const products = ref([]);
 const searchTerm = ref("");
