@@ -102,7 +102,7 @@ const props = defineProps({
   productId: { type: Number, default: null },
 });
 
-const emit = defineEmits(["fechar", "salvo"]);
+const emit = defineEmits(["fechar"]);
 
 const product = ref(null);
 
@@ -132,8 +132,8 @@ const saveChanges = async () => {
   try {
     console.log("Enviando estes dados para a API (payload):", product.value);
     await api.put(`/api/products/${product.value.id}`, product.value);
+    window.location.reload()
     alert("Produto atualizado com sucesso!");
-    emit("salvo");
   } catch (error) {
     console.error("Erro ao salvar os dados:", error);
     if (error.response) {

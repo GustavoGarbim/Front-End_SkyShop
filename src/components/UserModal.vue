@@ -1,10 +1,14 @@
 <template>
   <main>
-    <div v-if="!user">Loading data...</div>
-    <div v-else>
-      <form @submit.prevent="saveChanges">
-        <div v-if="visivel" class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50">
-          <div class="bg-white p-5 rounded-2xl shadow-2xl w-130 h-auto flex flex-col">
+    <div>
+      <form @submit.prevent="handleSubmit">
+        <div
+          v-if="visivel"
+          class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50"
+        >
+          <div
+            class="bg-white p-5 rounded-2xl shadow-2xl w-130 h-auto flex flex-col"
+          >
             <div
               class="flex justify-between items-center p-6 border-b border-gray-200"
             >
@@ -109,7 +113,15 @@
 
 <script setup>
 import { watch, ref, onMounted } from "vue";
-import api from "../services/api";
+import { useUserData } from "../services/pullData";
+import { useSaveData } from "../services/saveData";
+
+const { user, pullData } = useUserData();
+onMounted(() => {
+  pullData();
+});
+
+const {saveChanges} = useSaveData();
 
 defineProps(
   {
@@ -130,9 +142,6 @@ defineProps(
 );
 defineEmits(["fechar"]);
 
-const user = ref("");
-const id = localStorage.getItem("userId");
-
 const oldPassword = ref("");
 const newPassword = ref("");
 
@@ -141,37 +150,8 @@ const togglePasswordVisibility = () => {
   isPasswordVisible.value = !isPasswordVisible.value;
 };
 
-const pullData = async () => {
-  try {
-    const response = await api.get(`/api/Users/${id}`);
-    console.log("Resposta do backend: ", response.data);
-    user.value = response.data;
-  } catch (error) {
-    console.error("Erro ao puxar dados do servidor: ", error);
-    alert("Falha ao carregar dados, entre em contato com o ADM.");
-  }
-};
-
-onMounted(() => {
-  pullData();
-});
-
-const saveChanges = async () => {
-  if (!user.value) return;
-
-  try {
-    await api.put(`/api/Users/${id}`, user.value);
-    alert("Dados atualizados com sucesso!");
-    await api.put(`/api/Users/password/${id}`, {
-      oldPassword: oldPassword.value,
-      newPassword: newPassword.value,
-    });
-
-    oldPassword.value = "";
-    newPassword.value = "";
-  } catch (error) {
-    console.error("Erro ao salvar os dados:", error);
-  }
+const handleSubmit = () => {
+  saveChanges(user.value, oldPassword.value, newPassword.value);
 };
 </script>
 

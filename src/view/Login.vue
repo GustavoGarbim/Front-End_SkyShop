@@ -1,8 +1,12 @@
 <template>
   <main>
-    <div class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-sky-200 to-sky-300 flex justify-center items-center">
+    <div
+      class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-sky-200 to-sky-300 flex justify-center items-center"
+    >
       <form @submit.prevent="fazerLogin">
-        <div class="bg-white p-5 rounded-2xl shadow-2xl w-118 h-140 flex flex-col">
+        <div
+          class="bg-white p-5 rounded-2xl shadow-2xl w-118 h-140 flex flex-col"
+        >
           <div
             class="flex justify-between items-center p-6 border-b border-gray-200"
           >
@@ -43,6 +47,13 @@
 
           <!-- buttons for cancel and save -->
           <div class="flex flex-row gap-2 mt-10">
+            <button
+              type="submit"
+              class="hover:cursor-pointer rounded-lg w-60 h-10 bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-200 font-medium"
+            >
+              Login
+            </button>
+            <br />
             <router-link to="/register">
               <button
                 class="hover:cursor-pointer rounded-lg w-60 h-10 bg-gray-300 hover:bg-gray-400 transition-colors duration-200 font-medium"
@@ -50,13 +61,6 @@
                 Dont have Login? Click here
               </button>
             </router-link>
-            <br />
-            <button
-              type="submit"
-              class="hover:cursor-pointer rounded-lg w-60 h-10 bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-200 font-medium"
-            >
-              Login
-            </button>
           </div>
         </div>
       </form>
@@ -86,7 +90,7 @@ const fazerLogin = async () => {
     const token = response.data.token;
     const user = response.data.user;
     localStorage.setItem("userToken", token);
-    localStorage.setItem('userId', user.id);
+    localStorage.setItem("userId", user.id);
 
     router.push("/home");
   } catch (error) {

@@ -133,7 +133,7 @@ const createProduct = async () => {
 
   try {
     const response = await api.post(`/api/products`, productForm);
-
+    window.location.reload()
     alert('Produto criado com sucesso!');
 
   } catch (error) {

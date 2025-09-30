@@ -52,6 +52,13 @@
 
           <!-- buttons for cancel and save -->
           <div class="flex flex-row gap-2 mt-10">
+            <button
+              type="submit"
+              class="hover:cursor-pointer rounded-lg w-55 h-10 bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-200 font-medium"
+            >
+              Register
+            </button>
+            <br />
             <router-link to="/">
               <button
                 class="hover:cursor-pointer rounded-lg w-50 h-10 bg-gray-300 hover:bg-gray-400 transition-colors duration-200 font-medium"
@@ -59,13 +66,6 @@
                 Have a Login? Click here
               </button>
             </router-link>
-            <br />
-            <button
-              type="submit"
-              class="hover:cursor-pointer rounded-lg w-55 h-10 bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-200 font-medium"
-            >
-              Register
-            </button>
           </div>
         </div>
       </form>

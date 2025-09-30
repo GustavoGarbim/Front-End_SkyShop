@@ -35,10 +35,11 @@
       </button>
       <CartModal :visivel="modalCartAberto" @fechar="fecharCartModal" />
       <button
+        v-if="user"
         @click="abrirUserModal"
-        class="hover:cursor-pointer mt-4 w-35 h-10 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
+        class="flex items-center hover:cursor-pointer mt-4 min-w-35 max-w-xs h-10 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
       >
-        🙍 User
+        🙍 Hi, {{ user.name.split(' ')[0] }}!
       </button>
       <UserModal :visivel="modalUserAberto" @fechar="fecharUserModal" />
     </div>
@@ -46,7 +47,14 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { useCartStore } from "../stores/cartStore";
+import { useUserData } from "../services/pullData";
+
+const { user, pullData } = useUserData();
+onMounted(() => {
+  pullData();
+});
 
 const cartStore = useCartStore();
 </script>

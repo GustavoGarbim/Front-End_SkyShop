@@ -4,7 +4,6 @@
       :visivel="isModalVisible"
       :productId="selectedProductId"
       @fechar="fecharEditProductModal"
-      @salvo="handleSaveSuccess"
     />
     <div
       className="w-90 h-87 ml-10 mt-10 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 p-1"
@@ -72,7 +71,6 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["produtoAtualizado"]);
 
 const isModalVisible = ref(false);
 const selectedProductId = ref(null);
@@ -90,7 +88,6 @@ const fecharEditProductModal = () => {
 
 const handleSaveSuccess = () => {
   fecharEditProductModal();
-  emit("produtoAtualizado");
 };
 
 const deleteProduct = async (product) => {
@@ -98,7 +95,7 @@ const deleteProduct = async (product) => {
   try {
     await api.delete(`/api/products/${product.id}`);
     alert("Produto deletado com sucesso!");
-    emit("produtoAtualizado");
+    window.location.reload();
   } catch (error) {
     console.error("Erro ao deletar produto: ", error);
   }
