@@ -13,6 +13,7 @@ export const useCartStore = defineStore('cart', () => {
     })
 
     async function addToCart(product) {
+        console.log(product)
         try {
             const userId = localStorage.getItem("userId");
             if (!userId) {
@@ -21,6 +22,7 @@ export const useCartStore = defineStore('cart', () => {
             }
 
             const response = await api.post('/api/carts/items', {
+                imageUrl: product.imageUrl,
                 productId: product.id,
                 quantity: 1,
             },

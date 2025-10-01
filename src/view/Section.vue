@@ -10,13 +10,13 @@
     </div>
     <div class="px-10 mt-6">
       <input
-      type="text"
-      v-model="searchTerm"
-      placeholder="Search products..."
-      class="ml-140 w-180 p-3 border-2 border-white rounded-lg bg-gray-50"
-    />
+        type="text"
+        v-model="searchTerm"
+        placeholder="Search products..."
+        class="ml-140 w-180 p-3 border-2 border-white rounded-lg bg-gray-50"
+      />
     </div>
-    <div class="grid grid-cols-4 gap-8  p-10">
+    <div class="grid grid-cols-4 gap-8 p-10">
       <CardProduct
         v-for="product in filteredProducts"
         :key="product.id"
@@ -52,6 +52,7 @@ const pullDataProduct = async () => {
   try {
     const response = await api.get(`/api/products/`);
     products.value = response.data;
+    console.log("Resposta do backend: ", response.data);
   } catch (error) {
     console.error("Erro ao puxar dados do servidor: ", error);
   }

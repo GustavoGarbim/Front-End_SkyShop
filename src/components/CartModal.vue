@@ -48,7 +48,6 @@
             </span>
           </div>
 
-          <!-- buttons for cancel and payment -->
           <div class="flex flex-row gap-2 mt-2">
             <button
               @click="$emit('fechar')"
@@ -102,36 +101,39 @@ const finalCheckout = async () => {
   }
 
   try {
-    // 1. BUSCAR O CARRINHO
-    const response = await api.get('/api/carts', { params: { userId } });
-    
-    // 2. VERIFICAR A RESPOSTA E EXTRAIR O ID CORRETAMENTE
-    const cart = response.data; // Pega o objeto de dados inteiro
+    const response = await api.get(`api/carts/`, {
+      params: {
+        userId: userId,
+      },
+    });
 
-    // Verificação de segurança: garante que o carrinho e o ID existem
+    const cart = response.data;
+
     if (!cart || !cart.id) {
       alert("Nenhum carrinho ativo encontrado para este usuário.");
       return;
     }
-    
+
     const cartId = cart.id;
     console.log("ID do carrinho encontrado:", cartId);
 
-    // 3. FINALIZAR A COMPRA COM O ID CORRETO
     await api.post(
       "/api/checkouts",
-      { cartId: cartId }, // Envia o cartId no corpo
-      // Não é necessário enviar o userId aqui se o backend já o obtém pelo token
+      { cartId: cartId },
+      {
+        params: {
+          userId: userId,
+        },
+      }
     );
 
     alert("Compra realizada com sucesso!");
-    cartStore.clearCart(); // Supondo que você tenha uma ação para limpar o carrinho na sua store
-  
+    cartStore.clearCart();
   } catch (error) {
     console.error("Erro no checkout: ", error);
-    
-    // Mostra a mensagem de erro vinda do backend, se existir
-    const errorMessage = error.response?.data || "Falha ao finalizar a compra, tente novamente.";
+
+    const errorMessage =
+      error.response?.data || "Falha ao finalizar a compra, tente novamente.";
     alert(errorMessage);
   }
 };

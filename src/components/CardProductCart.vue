@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm mb-3">
     <div class="flex items-center gap-4">
-      <img :src="product.imageUrl" alt="*" class="w-16 h-16 object-cover rounded-md">
+      <img :src="product.imageUrl || '/placeholder.png'" :alt="product.productName" class="w-16 h-16 object-cover rounded-md">
       <div>
         <h3 class="font-semibold text-gray-800">{{ product.productName }}</h3>
-        <p class="text-sky-600 font-bold">$ {{ product.productPrice }}</p>
+        <p class="text-sky-600 font-bold">$ {{ product.price }}</p>
       </div>
     </div>
 
