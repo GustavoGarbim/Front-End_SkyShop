@@ -43,12 +43,11 @@ export const useCartStore = defineStore('cart', () => {
             if (!userId) return;
 
 
-
             const response = await api.get('/api/carts', { params: { userId } });
             cartItems.value = response.data.items || [];
 
-            const cartId = response.id
-            console.log(cartId)
+            const cartId = response.data.id
+            console.log("Achou o ID do carrinho: ", cartId)
         } catch (error) {
             console.error('Erro ao buscar o carrinho:', error);
         }
@@ -57,6 +56,7 @@ export const useCartStore = defineStore('cart', () => {
     async function removeFromCart(productId) {
         try {
             const userId = localStorage.getItem("userId");
+            console.log("log do removeFromCart chegou ID do produto: ", productId)
             const response = await api.delete(`/api/carts/items/${productId}`, { params: { userId } });
             cartItems.value = response.data.items;
         } catch (error) {
@@ -64,17 +64,14 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
-    async function updateQuantity(productId, quantity) {
-        if (quantity < 1) {
-            removeFromCart(productId);
-            return;
-        }
+    async function updateQuantity(product, quantity) {
+        console.log("[updateQuantity] ProductId: ", product)
         try {
             const userId = localStorage.getItem("userId");
             if (!userId) return;
 
             const response = await api.put(
-                `/api/carts/items/${productId}`,
+                `/api/carts/items/${product}`,
                 { quantity },
                 { params: { userId } }
             );
@@ -84,17 +81,46 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
-    function incrementQuantity(productId) {
-        const item = cartItems.value.find(item => item.id === productId);
-        if (item) {
-            updateQuantity(productId, item.quantity + 1);
+    async function incrementQuantity(productId) {
+        try {
+            const userId = localStorage.getItem("userId");
+            const response = await api.post('/api/carts/items', {
+                productId,
+                quantity: 1,
+            },
+                {
+                    params: {
+                        userId
+                    }
+                }
+            );
+            cartItems.value = response.data.items;
+
+        } catch (error) {
+            console.error('Erro ao adicionar item ao carrinho: ', error);
         }
     }
 
-    function decrementQuantity(productId) {
-        const item = cartItems.value.find(item => item.id === productId);
-        if (item) {
-            updateQuantity(productId, item.quantity - 1);
+    async function decrementQuantity(productId) {
+        const userId = localStorage.getItem("userId");
+        const response = await api.get(`api/carts/`, {
+            params: {
+                userId: userId
+            }
+        });
+        let itemEncontrado = null;
+        for (const item of response.data.items) {
+            if (item.productId === productId) {
+                itemEncontrado = item;
+                break;
+            }
+        }
+        const qnt = itemEncontrado.quantity - 1;
+        if (qnt <= 0) {
+            await removeFromCart(productId);
+        }
+        else {
+            updateQuantity(productId, qnt)
         }
     }
 

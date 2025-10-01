@@ -13,7 +13,7 @@
       type="text"
       v-model="searchTerm"
       placeholder="Search products..."
-      class="ml-140 w-180 p-3 border border-gray-300 rounded-lg"
+      class="ml-140 w-180 p-3 border-2 border-white rounded-lg bg-gray-50"
     />
     </div>
     <div class="grid grid-cols-4 gap-8  p-10">

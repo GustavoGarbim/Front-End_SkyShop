@@ -32,9 +32,9 @@
           <div v-else class="overflow-y-auto">
             <div class="flex flex-col gap-3">
               <CardProductCart
-                v-for="item in cartStore.cartItems"
-                :key="item.id"
-                :item="item"
+                v-for="product in cartStore.cartItems"
+                :key="product.id"
+                :product="product"
               />
             </div>
           </div>
@@ -100,22 +100,39 @@ const finalCheckout = async () => {
     alert("Erro: Usuário não está logado. Faça login para continuar.");
     return;
   }
-  try {
-    const response = await api.get('/api/carts', { params: { userId } });
-    const cartId = response.id
 
-    console.log(cartId)
+  try {
+    // 1. BUSCAR O CARRINHO
+    const response = await api.get('/api/carts', { params: { userId } });
+    
+    // 2. VERIFICAR A RESPOSTA E EXTRAIR O ID CORRETAMENTE
+    const cart = response.data; // Pega o objeto de dados inteiro
+
+    // Verificação de segurança: garante que o carrinho e o ID existem
+    if (!cart || !cart.id) {
+      alert("Nenhum carrinho ativo encontrado para este usuário.");
+      return;
+    }
+    
+    const cartId = cart.id;
+    console.log("ID do carrinho encontrado:", cartId);
+
+    // 3. FINALIZAR A COMPRA COM O ID CORRETO
     await api.post(
       "/api/checkouts",
-      { cartId: cartId },
-      { params: { userId } }
+      { cartId: cartId }, // Envia o cartId no corpo
+      // Não é necessário enviar o userId aqui se o backend já o obtém pelo token
     );
 
     alert("Compra realizada com sucesso!");
-    cartStore.clearCart();
+    cartStore.clearCart(); // Supondo que você tenha uma ação para limpar o carrinho na sua store
+  
   } catch (error) {
     console.error("Erro no checkout: ", error);
-    alert("Falha ao finalizar a compra, tente novamente.");
+    
+    // Mostra a mensagem de erro vinda do backend, se existir
+    const errorMessage = error.response?.data || "Falha ao finalizar a compra, tente novamente.";
+    alert(errorMessage);
   }
 };
 </script>
