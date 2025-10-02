@@ -121,10 +121,6 @@ const fecharEditProductModal = () => {
   selectedProductId.value = null;
 };
 
-const handleSaveSuccess = () => {
-  fecharEditProductModal();
-};
-
 const deleteProduct = async (product) => {
   if (!confirm(`Tem certeza que deseja deletar "${product.name}"?`)) return;
   try {

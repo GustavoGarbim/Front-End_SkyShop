@@ -44,12 +44,7 @@
           >
             <span class="text-lg font-medium text-gray-800">Total:</span>
             <span class="text-2xl font-bold text-sky-600">
-              {{
-                (cartStore.cartTotalPrice || 0).toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })
-              }}
+              {{ (cartStore.cartTotalPrice || 0).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}) }}
             </span>
           </div>
 
@@ -134,8 +129,6 @@ const finalCheckout = async () => {
 
     alert("Compra realizada com sucesso!");
     cartStore.clearCart();
-
-    await api.put(`api/products/${product.value.id}`, {});
   } catch (error) {
     console.error("Erro no checkout: ", error);
 

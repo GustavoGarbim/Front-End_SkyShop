@@ -1,7 +1,6 @@
 <template>
   <main class="h-screen w-auto bg-gradient-to-t from-sky-100 to-sky-300">
     <Header />
-    <SearchBar />
     <div class="ml-10 mt-10">
       <h1 class="text-3xl font-bold text-gray-800 mb-2">Featured Products</h1>
       <h2 class="font-medium text-lg text-gray-600">
