@@ -23,7 +23,7 @@
           <label for="image">Product Image URL</label>
           <input
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
             placeholder="https://example.com/image.jpg"
             v-model="productForm.imageUrl"
             required
@@ -33,7 +33,7 @@
           <label for="name">Product Name</label>
           <input
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
             placeholder="Enter product name"
             v-model="productForm.name"
             required
@@ -43,7 +43,7 @@
           <label for="price">Price ($)</label>
           <input
             type="number"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
             step="0.01"
             min="0"
             placeholder="Enter product price"
@@ -52,10 +52,10 @@
           />
           <br />
 
-          <label for="description">Description</label>
+          <label for="description">Short Description</label>
           <input
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
             placeholder="Enter product description"
             v-model="productForm.description"
             required
@@ -65,7 +65,7 @@
           <label for="stock">Stock</label>
           <input
             type="number"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
             placeholder="Enter product stock"
             v-model="productForm.stock"
             required
@@ -131,8 +131,18 @@ const productForm = reactive({
 });
 
 const createProduct = async () => {
-  if (!productForm.name || !productForm.price || productForm.price <= 0) {
-    alert("Por favor, preencha o nome e um preço válido maior que zero.");
+  if (
+    !productForm.name ||
+    !productForm.price ||
+    productForm.stock <= 0 ||
+    productForm.price <= 0
+  ) {
+    alert("Por favor, preencha o nome, preço e estoque válido maior que zero.");
+    return;
+  }
+
+  if (productForm.price >= 1000000) {
+    alert("Limite de preço excedido, por favor, revise.");
     return;
   }
 

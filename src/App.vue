@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted } from 'vue';
-import { useCartStore } from './stores/cartStore';
+import { onMounted } from "vue";
+import { useCartStore } from "./stores/cartStore";
 
 const cartStore = useCartStore();
 

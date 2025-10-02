@@ -9,7 +9,7 @@ export function useSaveData() {
 
     try {
       await api.put(`/api/Users/${user.id}`, user);
-      
+
       if (newPassword) {
         await api.put(`/api/Users/password/${user.id}`, {
           oldPassword: oldPassword,

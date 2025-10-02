@@ -37,7 +37,7 @@
                 <label for="name">Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
                   placeholder="Full Name"
                   v-model="user.name"
                   required
@@ -47,7 +47,7 @@
                 <label for="email">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
                   placeholder="E-mail"
                   v-model="user.email"
                   required
@@ -60,7 +60,7 @@
                 <input
                   :type="isPasswordVisible ? 'text' : 'password'"
                   id="password"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
                   placeholder="Password"
                   v-model="oldPassword"
                 />
@@ -79,7 +79,7 @@
                 <input
                   :type="isPasswordVisible ? 'text' : 'password'"
                   id="newpassword"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
                   placeholder="Password"
                   v-model="newPassword"
                 />
@@ -121,7 +121,7 @@ onMounted(() => {
   pullData();
 });
 
-const {saveChanges} = useSaveData();
+const { saveChanges } = useSaveData();
 
 defineProps(
   {

@@ -11,13 +11,13 @@
       @fechar="fecharDetailsProductModal"
     />
     <div
-      class="w-90 h-90 ml-10 mt-10 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 p-1"
+      class="w-90 h-90 ml-10 mt-10 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 border border-sky-300"
     >
       <div class="relative overflow-hidden flex justify-center">
         <img
           :src="product.imageUrl"
           alt="*"
-          class=" h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+          class="h-48 object-cover group-hover:scale-110 transition-transform duration-300"
         />
         <div
           class="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
@@ -48,23 +48,26 @@
           {{ product.name }}
         </h3>
         <p class="text-gray-600 text-sm mb-4 line-clamp-2 h-10">
-          {{ product.description }}
+          <span class="font-bold">Description</span> - {{ product.description }}
         </p>
 
-        <div class="flex justify-between items-center">
-          <span class="text-2xl font-bold text-sky-600"
-            >R$ {{ (product.price || 0).toFixed(2) }}</span
-          >
+        <div class="flex justify-between w-78 items-center">
+          <span class="text-2xl font-bold text-sky-600">{{
+            (product.price || 0).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })
+          }}</span>
           <button
             v-if="product.stock"
             @click="cartStore.addToCart(product)"
-            class="hover:cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+            class="hover:cursor-pointer w-36 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
           >
             Add to Cart
           </button>
           <button
             v-else
-            class="hover:cursor-pointer bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+            class="hover:cursor-pointer bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
           >
             Out of Stock
           </button>

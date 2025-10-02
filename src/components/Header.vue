@@ -1,6 +1,6 @@
 <template>
   <main
-    class="h-20 flex justify-start space-x-276 bg-white shadow-lg border-b-2 border-sky-200"
+    class="h-20 flex justify-start space-x-276 custom-div bg-[aliceblue] shadow-lg border-b-2 border-sky-200"
   >
     <div class="ml-5 flex items-center">
       <router-link to="/">
@@ -39,7 +39,7 @@
         @click="abrirUserModal"
         class="flex items-center hover:cursor-pointer mt-4 min-w-35 max-w-xs h-10 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg gap-2 transition-all duration-200 transform hover:scale-105"
       >
-        🙍 Hi, {{ user.name.split(' ')[0] }}!
+        🙍 Hi, {{ user.name.split(" ")[0] }}!
       </button>
       <UserModal :visivel="modalUserAberto" @fechar="fecharUserModal" />
     </div>

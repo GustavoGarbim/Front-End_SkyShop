@@ -1,23 +1,19 @@
 <template>
   <main>
     <div
-      class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-sky-200 to-sky-300 flex justify-center items-center"
+      class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-t from-sky-200 to-sky-300 flex justify-center items-center"
     >
       <form @submit.prevent="fazerLogin">
         <div
           class="bg-white p-5 rounded-2xl shadow-2xl w-118 h-140 flex flex-col"
         >
-          <div
-            class="flex justify-between items-center p-6 border-b border-gray-200"
-          >
-            <h1 class="text-2xl font-bold text-gray-800 ml-27">
-              Welcome back!
-            </h1>
+          <div class="flex justify-center p-6 border-b border-gray-200">
+            <h1 class="text-2xl font-bold text-gray-800">Welcome back!</h1>
           </div>
           <br />
           <!-- all data must be dynamic with the database -->
           <main id="CONTEUDO" class="">
-            <div id="FOTO DE PERFIL" class="flex items-center justify-center">
+            <div id="FOTO DE PERFIL" class="flex justify-center">
               <img class="w-25" src="../../public/circle.png" alt="foto" />
             </div>
             <section id="DADOS DO USUARIO">
@@ -26,7 +22,7 @@
               <label for="email">Email</label>
               <input
                 type="email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
                 placeholder="E-mail"
                 v-model="email"
                 required
@@ -36,7 +32,7 @@
               <label for="password">Password</label>
               <input
                 type="password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
                 placeholder="Password"
                 v-model="password"
                 required

@@ -21,7 +21,7 @@
         <br />
         <section class="flex">
           <div
-            class="mr-10 bg-gray-50 border-2 border-gray-300 flex items-center"
+            class="mr-10 bg-gray-50 border-2 border-gray-300 rounded flex items-center"
           >
             <img :src="product.imageUrl" :alt="product.name" />
           </div>
@@ -31,42 +31,38 @@
                 {{ product.name }}
               </h1>
             </div>
-            <span class="text-sm text-gray-600"
-              >⭐ (4.2) • 127 reviews</span
-            >
+            <span class="text-sm text-gray-600">⭐ (4.2) • 127 reviews</span>
             <div>
               <br />
               <div class="text-4xl font-bold text-sky-600 mb-6">
-                $ {{ product.price.toFixed(2) }}
+                {{
+                  (product.price || 0).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })
+                }}
               </div>
               <p class="text-gray-600 leading-relaxed w-120">
+                <span class="font-bold">Description</span> -
                 {{ product.description }}
               </p>
-              <br>
+              <br />
             </div>
             <div>
               <div class="grid grid-cols-2 gap-4">
-                <div
-                  class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg"
-                >
+                <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg">
                   🛡️
                   <span class="text-sm text-gray-700">2 Year Warranty</span>
                 </div>
-                <div
-                  class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg"
-                >
+                <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg">
                   🚚
                   <span class="text-sm text-gray-700">Free Shipping</span>
                 </div>
-                <div
-                  class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg"
-                >
+                <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg">
                   ↪️
                   <span class="text-sm text-gray-700">30-Day Returns</span>
                 </div>
-                <div
-                  class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg"
-                >
+                <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg">
                   🌟
                   <span class="text-sm text-gray-700">Premium Quality</span>
                 </div>
@@ -84,7 +80,7 @@
                   <span
                     v-if="product.stock"
                     class="ml-2 font-medium text-green-600"
-                    >In Stock</span
+                    >{{ product.stock }} In Stock</span
                   >
                   <span v-else class="ml-2 font-medium text-red-600"
                     >Out of Stock</span

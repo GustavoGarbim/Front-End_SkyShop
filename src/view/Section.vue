@@ -1,5 +1,5 @@
 <template>
-  <main class="h-screen w-auto bg-gradient-to-b from-sky-100 to-sky-300">
+  <main class="h-screen w-auto bg-gradient-to-t from-sky-100 to-sky-300">
     <Header />
     <SearchBar />
     <div class="ml-10 mt-10">
@@ -8,12 +8,12 @@
         Discover our premium collection of products
       </h2>
     </div>
-    <div class="px-10 mt-6">
+    <div class="px-10 mt-6 flex justify-center">
       <input
         type="text"
         v-model="searchTerm"
-        placeholder="Search products..."
-        class="ml-140 w-180 p-3 border-2 border-white rounded-lg bg-gray-50"
+        placeholder="🔎 Search products..."
+        class="w-180 p-3 border-2 border-white rounded-lg bg-gray-50"
       />
     </div>
     <div class="grid grid-cols-4 gap-8 p-10">
