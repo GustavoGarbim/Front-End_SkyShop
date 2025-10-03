@@ -72,7 +72,6 @@
           />
           <br />
 
-          <!-- buttons for cancel and save -->
           <div class="flex flex-row gap-2">
             <button
               @click="$emit('fechar')"
@@ -81,7 +80,6 @@
               Close
             </button>
             <br />
-            <!-- make this button save the product  METHOD: UPDATE -->
             <button
               type="submit"
               class="hover:cursor-pointer rounded-lg w-60 h-10 bg-sky-400 text-white hover:bg-sky-500 transition-colors duration-200 font-medium"
@@ -137,7 +135,7 @@ const createProduct = async () => {
     productForm.stock <= 0 ||
     productForm.price <= 0
   ) {
-    alert("Por favor, preencha o nome, preço e estoque válido maior que zero.");
+    alert("Por favor, preencha o nome, preço e estoque maior que zero.");
     return;
   }
 

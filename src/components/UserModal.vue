@@ -24,7 +24,6 @@
             </div>
             <br />
 
-            <!-- all data must be dynamic with the database -->
             <main id="CONTEUDO" class="">
               <div id="FOTO DE PERFIL" class="flex items-center justify-center">
                 <img
@@ -87,7 +86,6 @@
               </section>
             </main>
 
-            <!-- buttons for cancel and save -->
             <div class="flex flex-row gap-2 mt-10">
               <button
                 @click="$emit('fechar')"
@@ -96,7 +94,6 @@
                 Close
               </button>
               <br />
-              <!-- make this button save the updates in user  METHOD: UPDATE -->
               <button
                 type="submit"
                 class="hover:cursor-pointer rounded-lg w-60 h-10 bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-200 font-medium"

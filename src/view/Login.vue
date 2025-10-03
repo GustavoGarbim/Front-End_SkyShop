@@ -11,7 +11,6 @@
             <h1 class="text-2xl font-bold text-gray-800">Welcome back!</h1>
           </div>
           <br />
-          <!-- all data must be dynamic with the database -->
           <main id="CONTEUDO" class="">
             <div id="FOTO DE PERFIL" class="flex justify-center">
               <img class="w-25" src="../../public/circle.png" alt="foto" />
@@ -41,7 +40,6 @@
             </section>
           </main>
 
-          <!-- buttons for cancel and save -->
           <div class="flex flex-row gap-2 mt-10">
             <button
               type="submit"

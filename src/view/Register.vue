@@ -14,7 +14,6 @@
           </div>
           <br />
 
-          <!-- all data must be dynamic with the database -->
           <main id="CONTEUDO" class="">
             <div id="FOTO DE PERFIL" class="flex justify-center">
               <img class="w-25" src="../../public/circle.png" alt="foto" />
@@ -52,7 +51,6 @@
             </section>
           </main>
 
-          <!-- buttons for cancel and save -->
           <div class="flex flex-row gap-2 mt-10">
             <button
               type="submit"
@@ -88,6 +86,10 @@ const password = ref("");
 const address = ref("rua montegolfier");
 
 const fazerCadastro = async () => {
+  if (password.value.length < 6) {
+    alert("A senha deve ter pelo menos 6 caracteres.");
+    return;
+  }
   try {
     const response = await api.post("/api/Users", {
       name: name.value,
